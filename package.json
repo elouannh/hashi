@@ -1,0 +1,75 @@
+{
+  "name": "hashishin",
+  "version": "0.0.0",
+  "description": "A discord.js wrapper to create bots in a simpler way.",
+  "keywords": [
+    "discord",
+    "bot",
+    "package",
+    "discord.js",
+    "wrapper"
+  ],
+  "homepage": "https://github.com/elouannh/hashi#readme",
+  "bugs": {
+    "url": "https://github.com/elouannh/hashi/issues"
+  },
+  "license": "MIT",
+  "author": "Elouann H. (https://github.com/elouannh)",
+  "contributors": [
+    "Elouann H. (https://github.com/elouannh)"
+  ],
+  "funding": [
+    {
+      "type": "github",
+      "url": "https://github.com/sponsors/elouannh/dashboard"
+    }
+  ],
+  "files": [
+    "lib",
+    "types",
+    "hashi.config.schema.json",
+    "LICENSE",
+    "package.json",
+    "README.md"
+  ],
+  "main": "lib/index.js",
+  "types": "types/index.d.ts",
+  "directories": {
+    "lib": "lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/elouannh/hashi.git"
+  },
+  "scripts": {
+    "prettier": "prettier -w src",
+    "lint": "eslint src",
+    "dev": "./scripts/build.sh && ts-node tests/lab.test.ts",
+    "windev": ".\\scripts\\build.bat && ts-node tests/lab.test.ts",
+    "doc": "node doc.builder.js"
+  },
+  "dependencies": {
+    "chalk": "^5.3.0",
+    "discord-api-types": "^0.37.100",
+    "discord.js": "^14.16.2",
+    "dotenv": "^16.4.5",
+    "mongoose": "^8.6.3",
+    "typedoc-material-theme": "^1.1.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.11.0",
+    "@types/eslint__js": "^8.42.3",
+    "eslint": "^9.11.0",
+    "prettier": "^3.3.3",
+    "ts-node": "^10.9.2",
+    "tslint-config-prettier": "^1.18.0",
+    "typedoc": "^0.26.7",
+    "typescript": "^5.6.2",
+    "typescript-eslint": "^8.6.0"
+  },
+  "engines": {
+    "node": ">=20.12.2",
+    "npm": ">=10.2.0",
+    "pnpm": ">=9.0.6"
+  }
+}

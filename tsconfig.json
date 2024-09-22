@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "allowJs": false,
+    "target": "es2022",
+    "module": "commonjs",
+    "outDir": "./lib",
+    "declaration": true,
+    "declarationDir": "./types",
+    "skipLibCheck": true,
+    "typeRoots": ["node_modules/@types", "./types/index.d.ts"],
+    "newLine": "crlf"
+  },
+  "include": [
+    "./src/*.ts",
+    "./src/**/*.ts",
+    "./src/**/**/*.ts"
+  ],
+  "exclude": [
+    "./node_modules",
+    "./lib/*",
+    "./lib/**/*",
+    "./types/*",
+    "./types/**/*"
+  ],
+}

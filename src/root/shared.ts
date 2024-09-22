@@ -1,0 +1,350 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   shared.ts                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ehosta <ehosta@student.42lyon.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/27 20:08:20 by ehosta            #+#    #+#             */
+/*   Updated: 2024/07/28 14:22:19 by ehosta           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+import {
+	APIApplicationCommandOption,
+	ChatInputApplicationCommandData,
+	ChatInputCommandInteraction,
+	ClientOptions as DiscordClientOptions,
+	DiscordAPIError,
+	DiscordjsError,
+	LocalizationMap,
+	Snowflake,
+} from 'discord.js';
+import { Command, SuperModelColumn } from './';
+
+/**
+ * Prefilled version of the Discord.<APIApplicationCommand>. See more here :
+ * https://discord.com/developers/docs/interactions/application-commands#application-command-object
+ */
+export interface APIApplicationCommandPrefilled {
+	/**
+	 * Type of the command
+	 */
+	type: 1;
+	/**
+	 * 1-32 character name; `CHAT_INPUT` command names must be all lowercase matching
+	 * `^[-_\p{L}\p{N}\p{sc=Deva}\p{sc=Thai}]{1,32}$`
+	 */
+	name: string;
+	/**
+	 * Localization dictionary for the name field. Values follow the same restrictions as name
+	 */
+	name_localizations?: LocalizationMap | null;
+	/**
+	 * 1-100 character description for `CHAT_INPUT` commands, empty string for
+	 * `USER` and `MESSAGE` commands
+	 */
+	description: string;
+	/**
+	 * Localization dictionary for the description field. Values follow the same restrictions
+	 * as description
+	 */
+	description_localizations?: LocalizationMap | null;
+	/**
+	 * The parameters for the `CHAT_INPUT` command, max 25
+	 */
+	options?: APIApplicationCommandOption[];
+	/**
+	 * Set of permissions represented as a bitset
+	 */
+	default_member_permissions: Permissions | null;
+	/**
+	 * Indicates whether the command is available in DMs with the app, only for globally-scoped
+	 * commands. By default, commands are visible
+	 */
+	dm_permission?: boolean;
+	/**
+	 * Whether the command is enabled by default when the app is added to a guild
+	 *
+	 * If missing, this property should be assumed as `true`
+	 *
+	 * @deprecated Use `dm_permission` and/or `default_member_permissions` instead
+	 */
+	default_permission?: boolean;
+	/**
+	 * Indicates whether the command is age-restricted, defaults to `false`
+	 */
+	nsfw?: boolean;
+}
+
+/**
+ * The value that is returned when the command is finished.
+ */
+export enum COMMAND_END {
+	/**
+	 * When the command terminates goodly.
+	 */
+	SUCCESS = 0,
+	/**
+	 * When the command did not terminate.
+	 */
+	ERROR = 1,
+	/**
+	 * When the command terminates but with some problems that occurred in the process.
+	 */
+	ISSUED = 2,
+}
+
+/**
+ * The command block that includes the command, subcommands and/or subcommand groups.
+ */
+export interface CommandGroup {
+	/**
+	 * The command constructor.
+	 */
+	command: Command;
+	/**
+	 * The base metadata for the command.
+	 */
+	metadata: CommandMetadata;
+	/**
+	 * The subcommand group metadata.
+	 */
+	subcommandGroup?: CommandMetadataSubgroup;
+	/**
+	 * The subcommand metadata.
+	 */
+	subcommand?: CommandMetadataBase;
+}
+
+/**
+ * The interface that represents a command metadata.
+ */
+export interface CommandMetadataBase {
+	/**
+	 * The name of the command.
+	 */
+	id: string;
+	/**
+	 * The commands that must be executed before this one.
+	 * If one of the interfering commands is same-time running, this command will be ignored.
+	 */
+	interferingCommands?: ChatInputApplicationCommandData['name'][];
+	/**
+	 * The amount of time before running the command again. Must be between 0 and 300 seconds.
+	 */
+	coolDown?: number;
+	/**
+	 * The external data for the command.
+	 */
+	privileges?: CommandPrivileges;
+}
+
+/**
+ * The interface that represents a command metadata.
+ */
+export interface CommandMetadata extends CommandMetadataBase {
+	/**
+	 * The command data for the hashi slash command.
+	 */
+	src: APIApplicationCommandPrefilled;
+	/**
+	 * The subcommand groups of the command.
+	 */
+	subcommandGroups?: CommandMetadataSubgroup[];
+	/**
+	 * The subcommands of the command.
+	 */
+	subcommands?: CommandMetadataBase[];
+}
+
+/**
+ * The interface that represents a command metadata.
+ */
+export interface CommandMetadataSubgroup extends CommandMetadataBase {
+	/**
+	 * The subcommands of the command.
+	 */
+	subcommands: CommandMetadata['subcommands'];
+}
+
+/**
+ * The privileges for a command (restrictions and prohibition).
+ */
+export interface CommandPrivileges {
+	/**
+	 * If the command is forbidden in some specific channels.
+	 */
+	forbiddenChannels?: string[];
+	/**
+	 * If the command is forbidden for some specific users.
+	 */
+	forbiddenUsers?: string[];
+	/**
+	 * If the command is forbidden for some specific roles.
+	 */
+	forbiddenRoles?: string[];
+	/**
+	 * If the command is forbidden for some specific guilds.
+	 */
+	forbiddenGuilds?: string[];
+	/**
+	 * If the command is only allowed in some specific channels only.
+	 */
+	uniqueChannels?: string[];
+	/**
+	 * If the command is only allowed by some specific users only.
+	 */
+	uniqueUsers?: string[];
+	/**
+	 * If the command is only allowed by some specific roles only.
+	 */
+	uniqueRoles?: string[];
+	/**
+	 * If the command is only allowed in some specific guilds only.
+	 */
+	uniqueGuilds?: string[];
+}
+
+/**
+ * The type that represents a key included in CommandPrivileges.
+ */
+export type CommandPrivilegesKey = keyof CommandPrivileges;
+
+/**
+ * Represents an element in the cool downs queue.
+ */
+export type CoolDownsQueueElement = [
+	/**
+	 * The full name of the command (including the subcommands name).
+	 */
+	string,
+	/**
+	 * The end time of the cool down.
+	 */
+	number,
+	/**
+	 * The cool down amount.
+	 */
+	number,
+];
+
+/**
+ * The options for the Client. It extends the ClientOptions from discord.js and implements
+ * extra options for the Hashi module.
+ */
+export interface ClientOptions extends DiscordClientOptions {
+	/**
+	 * The configuration content (JSON).
+	 */
+	config: JSONHashiConfigStructure;
+}
+
+/**
+ * The Discord channels where the bot can be configured/logged.
+ */
+export interface ClientChannelsOption {
+	/**
+	 * The channel for the bot status.
+	 */
+	status: Snowflake;
+}
+
+/**
+ * The configuration file (JSON Schema) adapted on TypeScript.
+ */
+export interface JSONHashiConfigStructure {
+	/**
+	 * The (possible) path to the JSON Schema.
+	 */
+	$schema?: string;
+	/**
+	 * The Discord channels where the bot can be configured/logged.
+	 */
+	channels?: ClientChannelsOption;
+	/**
+	 * The mongoose connection information.
+	 */
+	database: {
+		/**
+		 * The address family (IPv4 or IPv6).
+		 */
+		addressFamily: 'IPv4' | 'IPv6';
+		/**
+		 * The connection URI.
+		 */
+		connectionURI: string;
+		/**
+		 * The name of the database.
+		 */
+		databaseName: string;
+	};
+	/**
+	 * The Discord Client intents.
+	 */
+	// @ts-expect-error This error is generated by the implicit "copy" of the value.
+	intents: ClientOptions['config']['intents'];
+	/**
+	 * The name of the project/process you're in.
+	 */
+	projectName: string;
+}
+
+/**
+ * Represents an error.
+ */
+export type HashiError = Error | DiscordjsError | DiscordAPIError;
+
+/**
+ * Represents an element in the interfering commands queue.
+ * Interfering commands that are same-time executed.
+ */
+export type InterferingQueueElement = [
+	/**
+	 * The full name of the command (including the subcommands name).
+	 */
+	string,
+	/**
+	 * The interaction id.
+	 */
+	ChatInputCommandInteraction,
+];
+
+/**
+ * A type-structure that represents a column or an object of columns.
+ */
+export type StructureColumnOrChild =
+	| { [key: string]: SuperModelColumn<unknown> | StructureColumnOrChild }
+	| SuperModelColumn<unknown>;
+
+/**
+ * The bits value for each command privileges key.
+ */
+export const bitRecord: Record<CommandPrivilegesKey, string> = {
+	forbiddenUsers: '0b10000000',
+	uniqueUsers: '0b1000000',
+	forbiddenGuilds: '0b100000',
+	uniqueGuilds: '0b10000',
+	forbiddenRoles: '0b1000',
+	uniqueRoles: '0b100',
+	forbiddenChannels: '0b10',
+	uniqueChannels: '0b1',
+};
+
+/**
+ * The list of mode-colors for logging assets.
+ */
+export const loggerModes = [
+	'error',
+	'success',
+	'warning',
+	'info',
+	'debug',
+	'test',
+	'clean',
+] as const;
+
+/**
+ * The type that represent a logger mode-color.
+ */
+export type LoggerMode = (typeof loggerModes)[number];

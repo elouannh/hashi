@@ -1,0 +1,12 @@
+{
+  "$schema": "../hashi.config.schema.json",
+  "channels": {
+    "status": "1228631187459670046"
+  },
+  "intents": 0,
+  "database": {
+    "addressFamily": "IPv4",
+    "connectionURI": "mongodb://localhost:27017/",
+    "databaseName": "hashi-plate"
+  }
+}

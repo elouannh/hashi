@@ -1,0 +1,65 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "properties": {
+    "channels": {
+      "type": "object",
+      "title": "Channels",
+      "description": "The channel ids for configuring the logger and other channel-based services.",
+      "properties": {
+        "status": {
+          "type": "string",
+          "title": "Status",
+          "description": "The status channel id.",
+          "minLength": 18,
+          "maxLength": 20,
+          "pattern": "[0-9]"
+        }
+      },
+      "required": ["status"]
+    },
+    "database": {
+      "type": "object",
+      "title": "Database",
+      "description": "The database configuration object (URI, database name, etc).",
+      "properties": {
+        "addressFamily": {
+          "type": "string",
+          "title": "TCP/IP Address Family",
+          "description": "The database address family (4 for IPv4, 6 for IPv6)",
+          "enum": ["IPv4", "IPv6"]
+        },
+        "connectionURI": {
+          "type": "string",
+          "title": "Database Connection URI",
+          "description": "The database URI where the database is located.",
+          "format": "uri"
+        },
+        "databaseName": {
+          "type": "string",
+          "title": "Database Name",
+          "description": "The database name to connect/create for the project.",
+          "pattern": "^[a-zA-Z_0-9][a-zA-Z0-9_ -]{2,62}[a-zA-Z_0-9]$"
+        }
+      },
+      "required": ["addressFamily", "connectionURI", "databaseName"]
+    },
+    "intents": {
+      "oneOf": [
+        {
+          "type": "integer",
+          "title": "Client Intents",
+          "description": "The client intents for the Discord Client instance.",
+          "minimum": 0,
+          "maximum": 3276799
+        },
+        {
+          "type": "string",
+          "title": "Client Intents",
+          "description": "The client intents for the Discord Client instance.",
+          "pattern": "[0-9]"
+        }
+      ]
+    }
+  },
+  "required": ["channels", "database", "intents"]
+}
