@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   SuperModelColumn.ts                                :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ehosta <ehosta@student.42lyon.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/27 20:08:34 by ehosta            #+#    #+#             */
-/*   Updated: 2024/07/28 14:45:36 by ehosta           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 import { SchemaDefinitionProperty, SchemaDefinitionWithBuiltInClass, Types } from 'mongoose';
 import { ObjectValidator } from '../decorators';
 

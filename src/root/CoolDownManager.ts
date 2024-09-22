@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   CoolDownManager.ts                                 :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ehosta <ehosta@student.42lyon.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/27 20:07:59 by ehosta            #+#    #+#             */
-/*   Updated: 2024/07/28 16:12:53 by ehosta           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 import { Collection, Snowflake } from 'discord.js';
 import { ObjectDeepValidator, FunctionValidator } from '../decorators';
 import { CoolDownsQueueElement } from './';

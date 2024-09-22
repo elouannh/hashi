@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ArrayValidator.ts                                  :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ehosta <ehosta@student.42lyon.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/27 20:06:28 by ehosta            #+#    #+#             */
-/*   Updated: 2024/07/28 14:48:57 by ehosta           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 import { DiscordAPIError, DiscordjsError, User } from 'discord.js';
 import { InstanceValidator } from '../shared';
 

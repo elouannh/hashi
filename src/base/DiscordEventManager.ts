@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   DiscordEventManager.ts                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ehosta <ehosta@student.42lyon.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/27 20:04:59 by ehosta            #+#    #+#             */
-/*   Updated: 2024/07/28 15:22:56 by ehosta           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 import { Collection } from 'discord.js';
 import { BaseClient, Logger } from './';
 import { ObjectDeepValidator } from '../decorators';

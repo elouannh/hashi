@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ObjectValidator.ts                                 :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ehosta <ehosta@student.42lyon.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/27 20:06:39 by ehosta            #+#    #+#             */
-/*   Updated: 2024/07/28 15:04:09 by ehosta           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 import { BaseGuildTextChannel, BaseGuildVoiceChannel, ThreadChannel } from 'discord.js';
 import { InstanceValidator } from '../shared';
 

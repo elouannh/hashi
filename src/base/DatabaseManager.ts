@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   DatabaseManager.ts                                 :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ehosta <ehosta@student.42lyon.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/27 20:04:50 by ehosta            #+#    #+#             */
-/*   Updated: 2024/07/28 15:18:30 by ehosta           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 import { connect, ConnectOptions, Model } from 'mongoose';
 import { BaseClient, DataMap, DataMapsObject, Logger, TypedDataMapStored } from './';
 import {

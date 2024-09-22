@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   InterferingManager.ts                              :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ehosta <ehosta@student.42lyon.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/27 20:08:13 by ehosta            #+#    #+#             */
-/*   Updated: 2024/07/28 14:54:38 by ehosta           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 import { ChatInputCommandInteraction, Collection, Snowflake } from 'discord.js';
 import { ObjectDeepValidator, FunctionValidator } from '../decorators';
 import { InterferingQueueElement } from './';

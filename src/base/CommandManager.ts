@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   CommandManager.ts                                  :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ehosta <ehosta@student.42lyon.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/27 20:04:32 by ehosta            #+#    #+#             */
-/*   Updated: 2024/07/28 15:20:12 by ehosta           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 import { APIApplicationCommand, ChatInputCommandInteraction, Collection } from 'discord.js';
 import { BaseClient, Context, Logger } from './';
 import {

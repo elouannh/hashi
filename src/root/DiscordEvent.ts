@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   DiscordEvent.ts                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ehosta <ehosta@student.42lyon.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/27 20:08:04 by ehosta            #+#    #+#             */
-/*   Updated: 2024/07/28 15:07:25 by ehosta           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 import { StringValidator, ObjectDeepValidator, FunctionValidator } from '../decorators';
 import { Client } from './';
 import { Logger } from '../base';

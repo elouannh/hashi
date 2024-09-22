@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   DataMap.ts                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ehosta <ehosta@student.42lyon.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/27 20:04:52 by ehosta            #+#    #+#             */
-/*   Updated: 2024/07/28 15:21:19 by ehosta           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 import { BaseClient, DATAMAP_INTENTS, Logger, TypedDataMapStored } from './';
 import { ObjectDeepValidator, StringValidator, ArrayValidator } from '../decorators';
 import { Client, DataMapEntry, SuperModel } from '../root';
